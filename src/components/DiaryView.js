@@ -1,13 +1,36 @@
-const DiaryView = ({auth, score, content, id, time_stamp}) =>{
+import React, {useState} from 'react';
+
+const DiaryView = ({onRemove, auth, score, content, id, time_stamp}) =>{
+    
+    const [isEdit, setIsEdit] = useState(false);
+    const toggleIsEdit = () => setIsEdit(!isEdit);
+    const [localContent, setLocalContent] = useState("");
+
+    const handleRemove = () =>{
+        if(window.confirm(`${id}삭제합니까?`)){
+        onRemove(id);
+    }}
+
     return (
-    <div className="DiaryView">
+    <div className="diary-view">
         <div className="posting">
             <span>작성자: {auth}</span>
             <span>점수: {score}</span>
             <br/>
             <span>{new Date(time_stamp).toLocaleString()}</span>
-            <div>{content}</div>
-            <span>작성자:</span>
+            <div>{isEdit ? 
+            <>
+                <textarea value={localContent} onChange={
+                    (e)=> setLocalContent(e.target.value);
+                }/>
+            </> 
+            : content}</div>
+            <button onClick={handleRemove}>
+                삭제
+            </button>
+            <button onClick={toggleIsEdit}>
+                수정
+            </button>
         </div>
     </div>
     )

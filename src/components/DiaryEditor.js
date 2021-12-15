@@ -1,6 +1,6 @@
 import React,{ useState, useRef } from 'react';  
 
-const DiaryEditor = () =>{
+const DiaryEditor = ({onCreate}) =>{
     const [state, setState] = useState({
         auth: '',
         content: '',
@@ -26,7 +26,13 @@ const DiaryEditor = () =>{
             contentLen.current.focus();
             return;
         }
+        onCreate(state.auth, state.content, state.score);
         alert("작성 성공");
+        setState({
+            auth: "",
+            content: "",
+            score: 1,
+        })
     }
     
     //const [name, setName] = useState('');

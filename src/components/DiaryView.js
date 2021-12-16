@@ -20,9 +20,6 @@ const DiaryView = ({onRemove, auth, score, content, id, time_stamp}) =>{
             <span>{new Date(time_stamp).toLocaleString()}</span>
             <div>{isEdit ? 
             <>
-                <textarea value={localContent} onChange={
-                    (e)=> setLocalContent(e.target.value);
-                }/>
             </> 
             : content}</div>
             <button onClick={handleRemove}>
